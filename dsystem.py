@@ -8,6 +8,13 @@ class Server:
         self.licensed_client = None
         self.logs = []
 
+    def get_ip(self):
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+
     def get_licensed_client(self):
         return self.licensed_client
 
@@ -81,6 +88,13 @@ class Client:
     def __init__(self, server_address = ("127.0.0.1", 6969)):
         self.server_address = server_address
         self.status = 0
+
+    def get_ip(self):
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
 
     def config(self, server_address):
         self.server_address = server_address

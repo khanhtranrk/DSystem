@@ -59,7 +59,7 @@ thread = threading.Thread()
 
 # Gui
 window = tk.Tk()
-window.title("Client")
+window.title("Client | " + client.get_ip())
 window.geometry('400x300')
 
 # Input Host

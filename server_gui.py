@@ -10,7 +10,11 @@ def close_button_click():
     window.destroy()
 
 def licensed_client_on_changed(server, client):
-    pass
+    if client == None:
+        licensed_client_label.config(text="Licensed client: No-one")
+        return
+
+    licensed_client_label.config(text="Licensed client: " + client[0][0])
 
 def waiting_clients_on_changed(server, waiting_list):
     for i in waiting_clients_list.get_children():
@@ -36,8 +40,11 @@ thread.start()
 
 # Gui
 window = tk.Tk()
-window.title("Client")
+window.title("Server")
 window.geometry('600x700')
+
+#  licensed_client label
+licensed_client_label = tk.Label(text="Licensed client: No-one")
 
 #  Waiting clients label
 waiting_clients_label = tk.Label(text="Wating clients:")
@@ -52,7 +59,7 @@ waiting_clients_list.column("Port", anchor=tk.CENTER, width=180)
 
 waiting_clients_list.heading("#0", text="", anchor=tk.CENTER)
 waiting_clients_list.heading("IP", text="IP", anchor=tk.CENTER)
-waiting_clients_list.heading("Port",text="Name", anchor=tk.CENTER)
+waiting_clients_list.heading("Port",text="Port", anchor=tk.CENTER)
 
 # Logs label
 logs_label = tk.Label(text="Logs:")
@@ -73,8 +80,9 @@ logs_list.heading("Time",text="Time", anchor=tk.CENTER)
 close_button = tk.Button(text="Close", width=16, command=close_button_click)
 
 # Info label
-info_label = tk.Label(text="Host: 192.168.1.12 | Port: 6969")
+info_label = tk.Label(text="Host: " + server.get_ip() + " | Port: 6969")
 
+licensed_client_label.pack(padx=5, anchor="w")
 logs_label.pack(padx=5, anchor="w")
 logs_list.pack()
 waiting_clients_label.pack(padx=5, anchor="w")
